@@ -1,7 +1,7 @@
 <?php
 	$cole = $_POST['clave'];
 
-  $conexi = mysql_connect('mysql.hostinger.es','u731967327_fel','diseno80')
+  $conexi = mysql_connect('mysql.hostinger.es','u731967327_???','diseno??')
       or die ("Error al conectar a la base de datos.");
   mysql_select_db ('u731967327_libre',$conexi)
       or die ("Error al conectar a la base de datos.");
