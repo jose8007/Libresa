@@ -1,4 +1,158 @@
-<html>
-<body>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="en"><head>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]--><!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]--><!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]--><!--[if (gte IE 9)|!(IE)]><!--><!--<![endif]--><!-- Basic Page Needs ================================================== -->
+<meta charset="UTF-8">
+<title>Other Characters</title>
+
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Mobile Specific Metas ================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
+<!-- CSS ================================================== -->
+<link rel="stylesheet" href="stylesheets/base.css">
+<link rel="stylesheet" href="stylesheets/skeletondemo.css">
+<link rel="stylesheet" href="stylesheets/layout.css">
+
+<!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]--><!-- Favicons ================================================== -->
+<link rel="shortcut icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="Buscador/xpath.js"></script>
+<script language="JavaScript" type="text/javascript" src="Buscador/SpryData.js"></script>
+<script src="Buscador/SpryAutoSuggest.js" type="text/javascript"></script>
+<link href="Buscador/SpryAutoSuggest.css" rel="stylesheet" type="text/css" />
+
+<script language="JavaScript" type="text/javascript">
+
+var dsProducts1 = new Spry.Data.XMLDataSet("GuiList.xml", "biblio/Guias");
+
+function FilterData(){
+	
+var tf = document.getElementById("filterTF");
+if (!tf.value)
+{
+// If the text field is empty, remove any filter
+// that is set on the data set.
+dsBiblioteca.filter(null);
+return;
+}
+// Set a filter on the data set that matches any row
+// that begins with the string in the text field.
+var regExpStr = tf.value;
+if (!document.getElementById("containsCB").checked)
+regExpStr = "" + regExpStr;
+var regExp = new RegExp(regExpStr, "i");
+var filterFunc = function(ds, row, rowNumber)
+{
+var str = row["titulo"];
+if (str && str.search(regExp) != -1)
+return row;
+return null;
+};
+dsBiblioteca.filter(filterFunc);
+}
+function StartFilterTimer()
+{
+if (StartFilterTimer.timerID)
+clearTimeout(StartFilterTimer.timerID);
+StartFilterTimer.timerID = setTimeout(function() { StartFilterTimer.timerID = null; FilterData(); }, 300);
+}
+ 
+ function valida_envia(){ 
+   		alert("Muchas gracias por enviar el formulario"); 
+		document.form1.submit(); 
+		}
+
+-->
+
+</script>
+
+
+</head>
+
+<body style="background-image:url(backsuper.png); background-repeat:repeat-x;">
+
+<div class="container">
+<header> <a href="Index.html"><img src="logosuper1A.png" width="200" height="154" style="margin-top:2px;"></a> </header>
+	
+    <form action="insertarGui.php" method="post" name="form1">
+    <div align="center" >
+    &nbsp;
+    <p>Introducir nombre del Colegio</p>    
+    <input value="" size="60" type="text" style="width:400px;" name="Brefe" /> &nbsp;
+    </div><br><br>
+    
+    <div align="center" >
+    &nbsp;
+    <p>Introducir password</p>
+    <input value="" size="60" type="text" style="width:400px;" name="Bpass" /> &nbsp;
+    </div><br><br>
+    
+    <div align="center" >
+    &nbsp;
+    <p>Número de tarjeta</p>
+    <input value="" size="60" type="text" style="width:400px;" name="Btarje" /> &nbsp;
+    </div><br><br>
+    
+
+    <div id="spryautosuggest2" align="center" >
+    &nbsp;
+    <p>Introducir título del libro</p>     
+    <input id="filterTF" value="" size="60" type="text" style="width:400px;" name="Blibro" /> &nbsp;
+    
+    <div id="productMenu2" spry:region="dsProducts1">
+    <div spry:repeat="dsProducts1" spry:test="{ds_RowNumber}&lt;3" spry:suggest="{Libro}">
+    <div>{Libro}</div>
+    </div>
+    </div><br /><br />
+    <script type="text/javascript">
+    var sprysuggest1 = new Spry.Widget.AutoSuggest("spryautosuggest2", "productMenu2", "dsProducts1", "Libro");
+    </script> 
+    
+    </div>
+        
+    <div id="productMenu2" spry:region="dsProducts1">
+    <div spry:repeat="dsProducts1" spry:test="{ds_RowNumber}&lt;1">
+    <label for="regularInput">Guía del alumno</label>
+	<input type="text" style="width:300px;" value="{Alumno}" name="Balum" /><br><br>
+    <label for="regularInput">Guía del Profesor</label>
+	<input type="text" style="width:300px;" value="{Profe}" name="Bprofe" /><br><br>
+    <label for="regularInput">Imagen</label>
+	<input type="text" style="width:300px;" value="{imagen}" name="Bimag" />
+    </div></div>    
+     
+</form>
+</div><br><br>
+ 
+
+<!-- Primary Page Layout ================================================== -->
+<!-- Delete everything in this .container and get started on your own site! -->
+<div id="enviar" class="container" style="background-color:#09C; height:100px;">
+  <div style="width:380px; display:inline; float:left; height:100px;"></div>
+&nbsp;
+
+<div style="height:60px; background-color:#069;" align="center">
+<input type="button" value="Enviar" onClick="valida_envia()" style="margin-top:10px; width:150px; height:40px;">
+</div>
+</div>
+  
+
+</div>
+
+    
+<footer class="container">
+	<hr>
+  <div class="sixteen columns">
+	<ul>
+	<li>@LIBRESA</li>
+	</ul>
+	</div>
+	<div id="content" class="sixteen columns">@ 1927 - 2014 Libresa</div>
+</footer>
+
+
+</body></html>
